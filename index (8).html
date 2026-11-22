@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>400 Days to the Trek</title>
+<meta name="description" content="Counting down 400 days to our trek.">
+<meta name="theme-color" content="#0e1112">
+<meta property="og:title" content="400 Days to the Trek">
+<meta property="og:description" content="Counting down 400 days to our trek.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230e1112'/><path d='M6 50 L24 22 L33 36 L41 26 L58 50Z' fill='%235b8c66'/><path d='M24 22 L19 30 L24 28 L28 31Z' fill='%23ebe7de'/><circle cx='47' cy='16' r='5' fill='%23e98a3c'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e1112; --line2:rgba(255,255,255,.13);
+  --text:#ebe7de; --muted:#98a198; --dim:#6b756e;
+  --forest:#2f4a37; --green:#5b8c66; --orange:#e98a3c; --orange2:#f4a862;
+  --head:'Barlow Condensed',ui-sans-serif,system-ui,sans-serif;
+  --body:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.hero{position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 20px 150px;isolation:isolate}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.mist{position:absolute;left:-30%;width:160%;height:140px;z-index:-1;background:radial-gradient(ellipse at center,rgba(210,215,205,.07),transparent 70%);filter:blur(8px);animation:drift 46s ease-in-out infinite alternate;pointer-events:none}
+.mist.m1{bottom:22%}.mist.m2{bottom:10%;animation-duration:62s;animation-direction:alternate-reverse}
+@keyframes drift{from{transform:translateX(-6%)}to{transform:translateX(6%)}}
+.inner{max-width:1000px;width:100%;text-align:center;animation:rise .9s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:.72rem;letter-spacing:.38em;text-transform:uppercase;color:var(--orange2)}
+h1{font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:.03em;font-size:clamp(2.6rem,7.4vw,5.6rem);line-height:.92;margin:14px 0 12px}
+h1 em{font-style:normal;color:var(--orange)}
+.sub{color:var(--muted);font-size:.95rem}
+.sub b{color:var(--text);font-weight:500}
+.countdown{display:flex;justify-content:center;gap:clamp(8px,2vw,18px);margin:36px 0 24px}
+.unit{min-width:clamp(72px,16vw,160px);padding:22px 8px 14px;border-radius:18px;background:rgba(18,24,25,.55);border:1px solid var(--line2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.num{font-family:var(--head);font-weight:600;font-size:clamp(2.4rem,7.5vw,5.2rem);line-height:1;font-variant-numeric:tabular-nums}
+.lbl{font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.status{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 24px;color:var(--muted);font-size:.92rem}
+.status b{color:var(--text);font-weight:600}
+.track{position:relative;margin:30px auto 0;max-width:820px;padding:0 10px 34px}
+.bar{height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--forest),var(--green),var(--orange));transition:width 1s ease}
+.ms-wrap{position:absolute;left:10px;right:10px;top:0}
+.ms{position:absolute;top:-6px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+.ms i{display:block;width:20px;height:20px;border-radius:50%;background:#13181a;border:2px solid var(--line2);transition:.4s}
+.ms span{font-size:.66rem;color:var(--dim);margin-top:6px;white-space:nowrap}
+.ms.done i{background:var(--orange);border-color:var(--orange2);box-shadow:0 0 12px rgba(233,138,60,.55)}
+.ms.done span{color:var(--orange2)}
+.ms.next i{border-color:var(--orange);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(233,138,60,.5)}70%{box-shadow:0 0 0 10px rgba(233,138,60,0)}100%{box-shadow:0 0 0 0 rgba(233,138,60,0)}}
+.quote{margin:24px auto 0;max-width:620px;font-style:italic;color:#cfcabe;min-height:3.2em;transition:opacity .6s}
+.quote small{display:block;font-style:normal;color:var(--dim);font-size:.72rem;margin-top:4px;letter-spacing:.14em;text-transform:uppercase}
+footer{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:var(--dim);font-size:.75rem}
+.done-mode h1 em{color:var(--orange2)}
+@media (max-width:600px){
+  .unit{padding:14px 4px 10px;border-radius:14px}
+  .ms span{font-size:.58rem}
+  .ms:nth-child(odd):not(:last-child) span{visibility:hidden}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="hero" id="hero">
+  <svg class="hero-bg" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#090c0e"/><stop offset=".55" stop-color="#121c1c"/><stop offset=".82" stop-color="#2a2a22"/><stop offset="1" stop-color="#3a2a1c"/>
+      </linearGradient>
+      <radialGradient id="glow" cx=".62" cy=".78" r=".45">
+        <stop offset="0" stop-color="#e98a3c" stop-opacity=".38"/><stop offset="1" stop-color="#e98a3c" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="far" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4643"/><stop offset="1" stop-color="#1d2725"/></linearGradient>
+      <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22322b"/><stop offset="1" stop-color="#141c19"/></linearGradient>
+    </defs>
+    <rect width="1440" height="760" fill="url(#sky)"/>
+    <rect width="1440" height="760" fill="url(#glow)"/>
+    <g id="stars"></g>
+    <path fill="url(#far)" d="M0 520 L90 470 L170 490 L260 400 L330 440 L420 330 L500 400 L560 370 L640 300 L700 340 L790 250 L860 320 L930 290 L1010 360 L1090 300 L1170 380 L1250 340 L1340 410 L1440 380 L1440 760 L0 760Z"/>
+    <path fill="#d9d4c7" opacity=".55" d="M790 250 L762 286 L778 280 L790 294 L806 278 L822 290Z M640 300 L616 330 L632 325 L644 336 L656 322 L668 328Z M420 330 L398 360 L414 355 L424 364 L436 352Z M1090 300 L1070 326 L1084 322 L1094 330 L1106 318Z"/>
+    <path fill="url(#mid)" d="M0 600 L110 520 L210 560 L330 470 L450 560 L540 500 L660 580 L780 470 L900 560 L1010 500 L1120 570 L1230 490 L1340 560 L1440 520 L1440 760 L0 760Z"/>
+    <path fill="#111815" d="M0 660 L150 600 L300 650 L470 590 L640 660 L820 600 L1000 660 L1180 610 L1340 650 L1440 620 L1440 760 L0 760Z"/>
+    <path fill="#0e1112" d="M0 712 L240 680 L520 712 L800 684 L1100 714 L1440 688 L1440 760 L0 760Z"/>
+  </svg>
+  <div class="mist m1"></div><div class="mist m2"></div>
+
+  <div class="inner">
+    <div class="eyebrow" id="eyebrow">The countdown is on</div>
+    <h1><em id="bigDays">400 Days</em> to the Trek</h1>
+    <p class="sub" id="sub"></p>
+
+    <div class="countdown" role="timer">
+      <div class="unit"><div class="num" id="d">--</div><div class="lbl">Days</div></div>
+      <div class="unit"><div class="num" id="h">--</div><div class="lbl">Hours</div></div>
+      <div class="unit"><div class="num" id="m">--</div><div class="lbl">Minutes</div></div>
+      <div class="unit"><div class="num" id="s">--</div><div class="lbl">Seconds</div></div>
+    </div>
+
+    <div class="status" id="status"></div>
+
+    <div class="track">
+      <div class="bar"><div class="fill" id="fill"></div></div>
+      <div class="ms-wrap" id="milestones"></div>
+    </div>
+
+    <p class="quote" id="quote"></p>
+  </div>
+  <footer>Counting down in Nepal Time (UTC+05:45) 🥾</footer>
+</main>
+
+<script>
+'use strict';
+/* ====== EDIT THESE ====== */
+const TREK = {
+  name: 'The Trek',
+  start: '2026-11-17T00:00:00+05:45',  // Day 1 starts at midnight, Nepal time
+  days: 400,                           // Day 400 = 21 Dec 2027
+};
+/* ======================== */
+
+const DAY = 86400000;
+const START = new Date(TREK.start).getTime();
+const END = START + TREK.days * DAY;
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2, '0');
+const fmt = t => new Date(t).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Kathmandu' });
+const MILESTONES = [50, 100, 150, 200, 250, 300, 350, 400];
+const QUOTES = [
+  ['The mountains are calling and I must go.', 'John Muir'],
+  ['It is not the mountain we conquer, but ourselves.', 'Edmund Hillary'],
+  ['The best view comes after the hardest climb.', 'Trail saying'],
+  ['Slow is smooth. Smooth is fast. Keep walking.', 'Trail saying'],
+  ['A journey of a thousand miles begins with a single step.', 'Lao Tzu'],
+  ['Strong legs are built on boring days.', 'Trail saying'],
+  ['Small steps every day. The mountain will not move, but you will.', 'Trail saying'],
+];
+
+document.title = `400 Days to the Trek — ${TREK.name}`;
+$('sub').innerHTML = `<b>${TREK.name}</b> · Day 1 on ${fmt(START)} → Day ${TREK.days} on ${fmt(END - 1)}`;
+$('milestones').innerHTML = MILESTONES.map(m => `<div class="ms" data-m="${m}" style="left:${m / TREK.days * 100}%"><i></i><span>Day ${m}</span></div>`).join('');
+
+// Stars
+let stars = '';
+for (let i = 0; i < 130; i++) {
+  const o = (Math.random() * .6 + .2).toFixed(2);
+  stars += `<circle cx="${(Math.random() * 1440).toFixed(0)}" cy="${(Math.random() * 380).toFixed(0)}" r="${(Math.random() * 1.1 + .25).toFixed(2)}" fill="#fff" opacity="${o}"><animate attributeName="opacity" values="${o};.1;${o}" dur="${(Math.random() * 4 + 3).toFixed(1)}s" repeatCount="indefinite"/></circle>`;
+}
+$('stars').innerHTML = stars;
+
+function tick() {
+  const now = Date.now();
+  const diff = Math.max(0, END - now);
+  const completed = Math.min(TREK.days, Math.max(0, Math.floor((now - START) / DAY)));
+  const pct = Math.min(100, Math.max(0, (now - START) / (END - START) * 100));
+
+  $('d').textContent = Math.floor(diff / DAY);
+  $('h').textContent = pad(Math.floor(diff / 3600000) % 24);
+  $('m').textContent = pad(Math.floor(diff / 60000) % 60);
+  $('s').textContent = pad(Math.floor(diff / 1000) % 60);
+  $('fill').style.width = pct + '%';
+
+  const next = MILESTONES.find(m => m > completed);
+  document.querySelectorAll('.ms').forEach(el => {
+    const m = +el.dataset.m;
+    el.classList.toggle('done', completed >= m);
+    el.classList.toggle('next', m === next);
+  });
+
+  if (now >= END) {
+    document.body.classList.add('done-mode');
+    $('eyebrow').textContent = 'The wait is over';
+    $('bigDays').textContent = 'Trek day';
+    $('status').innerHTML = '<span><b>All 400 days done.</b> Lace up — see you on the trail. 🏔️</span>';
+  } else if (now < START) {
+    $('status').innerHTML = `<span>Day 1 starts <b>${fmt(START)}</b></span><span><b>${TREK.days}</b> days to go</span>`;
+  } else {
+    $('status').innerHTML = `<span>Day <b>${completed + 1} / ${TREK.days}</b></span><span><b>${TREK.days - completed}</b> days left</span><span><b>${pct.toFixed(1)}%</b> of the wait done</span>`;
+  }
+}
+
+let qi = Math.floor(Date.now() / DAY) % QUOTES.length;
+function showQuote() {
+  const q = $('quote'); q.style.opacity = 0;
+  setTimeout(() => { const [t, w] = QUOTES[qi++ % QUOTES.length]; q.innerHTML = `“${t}”<small>— ${w}</small>`; q.style.opacity = 1; }, 500);
+}
+
+tick(); setInterval(tick, 1000);
+showQuote(); setInterval(showQuote, 20000);
+</script>
+</body>
+</html>
