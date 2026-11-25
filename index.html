@@ -88,6 +88,31 @@ footer.hero-foot{position:absolute;bottom:14px;left:0;right:0;text-align:center;
 .crew-foot{text-align:center;margin-top:44px;color:var(--dim);font-size:.82rem}
 .crew-foot a{color:var(--orange2);text-decoration:none}
 .top{display:inline-block;margin-top:10px}
+
+/* ===== Join form ===== */
+.join{max-width:720px;margin:64px auto 0;padding:34px 30px 30px;border-radius:22px;background:rgba(18,24,25,.65);border:1px solid var(--line2);position:relative;overflow:hidden}
+.join::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 100% 0%,rgba(233,138,60,.14),transparent 55%);pointer-events:none}
+.join h3{font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(1.8rem,4.4vw,2.6rem);line-height:1;text-align:center}
+.join h3 em{font-style:normal;color:var(--orange)}
+.join .lede{text-align:center;color:var(--muted);font-size:.92rem;margin:10px 0 26px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px;text-align:left}
+.field.full{grid-column:1/-1}
+.field label{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select,.field textarea{width:100%;font:inherit;font-size:.95rem;color:var(--text);background:rgba(8,11,12,.7);border:1px solid var(--line2);border-radius:12px;padding:12px 14px;transition:border-color .25s,box-shadow .25s}
+.field textarea{min-height:92px;resize:vertical}
+.field select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 20px) 52%,calc(100% - 14px) 52%;background-size:6px 6px;background-repeat:no-repeat;padding-right:36px}
+.field select option{background:#12181a;color:var(--text)}
+.field input::placeholder,.field textarea::placeholder{color:var(--dim)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(233,138,60,.18)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.btn{grid-column:1/-1;margin-top:6px;font-family:var(--head);font-weight:700;font-size:1.25rem;letter-spacing:.14em;text-transform:uppercase;color:#0e1112;background:linear-gradient(90deg,var(--orange),var(--orange2));border:0;border-radius:14px;padding:15px 20px;cursor:pointer;transition:transform .2s,box-shadow .2s,opacity .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(233,138,60,.3)}
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+.form-msg{grid-column:1/-1;text-align:center;font-size:.9rem;min-height:1.3em;color:var(--muted)}
+.form-msg.ok{color:var(--green)}
+.form-msg.err{color:#e07a5f}
+@media (max-width:600px){.join{padding:26px 18px 22px}.fields{grid-template-columns:1fr}}
 @media (max-width:600px){
   .unit{padding:14px 4px 10px;border-radius:14px}
   .ms span{font-size:.58rem}
@@ -160,8 +185,47 @@ footer.hero-foot{position:absolute;bottom:14px;left:0;right:0;text-align:center;
       <p id="crewCount"></p>
     </div>
     <div class="grid" id="crewGrid"></div>
+    <div class="join" id="join">
+      <h3>Want to <em>join</em> the trek?</h3>
+      <p class="lede">Fill this in and we'll get back to you. Spots are limited.</p>
+      <form class="fields" id="joinForm" novalidate>
+        <div class="field">
+          <label for="jName">Your name</label>
+          <input id="jName" name="name" type="text" placeholder="Full name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="jContact">Email or phone</label>
+          <input id="jContact" name="contact" type="text" placeholder="How can we reach you?" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="jExp">Trekking experience</label>
+          <select id="jExp" name="experience" required>
+            <option value="" disabled selected>Select one</option>
+            <option>First trek ever</option>
+            <option>Day hikes only</option>
+            <option>A few multi-day treks</option>
+            <option>Seasoned trekker</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="jFit">Current fitness</label>
+          <select id="jFit" name="fitness" required>
+            <option value="" disabled selected>Select one</option>
+            <option>Just getting started</option>
+            <option>Moderately active</option>
+            <option>Very fit</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="jMsg">Anything else? (optional)</label>
+          <textarea id="jMsg" name="message" placeholder="Why you want to come, dietary needs, questions..."></textarea>
+        </div>
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn" type="submit" id="joinBtn">Request a spot</button>
+        <div class="form-msg" id="formMsg" role="status" aria-live="polite"></div>
+      </form>
+    </div>
     <div class="crew-foot">
-      <span>Want to join? Tell the crew leader.</span><br>
       <a class="top" href="#hero">↑ Back to the countdown</a>
     </div>
   </div>
@@ -178,12 +242,17 @@ const TREK = {
 
 // Add, remove or rename people here.
 const CREW = [
-  { name: 'Abhinav Bista',   role: 'Trip Leader', note: 'The one who is actually invested' },
-  { name: 'Anbit Bhattarai',   role: 'Planner',   note: 'Trying,But Barely' },
-  { name: 'Pranil Prasai', role: 'The Leg',note: 'Has the best Walk' },
-  { name: 'Sakshi Sapkota',  role: 'Motivator',        note: 'Motivates us as the lowest' },
-  { name: 'Srijal Joshi',  role: 'Sir Edmund Hillary',        note: 'Is Responsible to actually take us' },
+  { name: 'Trekker One',   role: 'Trip Leader', note: 'Plans the route and keeps the pace honest.' },
+  { name: 'Trekker Two',   role: 'Navigator',   note: 'Maps, trails and weather.' },
+  { name: 'Trekker Three', role: 'Photographer',note: 'Always stops for the shot.' },
+  { name: 'Trekker Four',  role: 'Cook',        note: 'Responsible for morale and hot meals.' },
 ];
+// Where join requests go. Fill in ONE (checked in this order):
+const JOIN = {
+  endpoint: '',   // e.g. 'https://formspree.io/f/xxxxxxx'  (sends silently, no email app needed)
+  email: '',      // e.g. 'you@example.com'                  (opens the visitor's email app, pre-filled)
+  whatsapp: '',   // e.g. '9779812345678' (country code, no +) (opens WhatsApp, pre-filled)
+};
 /* ======================== */
 
 const DAY = 86400000;
@@ -276,6 +345,36 @@ function showQuote() {
   const q = $('quote'); q.style.opacity = 0;
   setTimeout(() => { const [t, w] = QUOTES[qi++ % QUOTES.length]; q.innerHTML = `“${t}”<small>— ${w}</small>`; q.style.opacity = 1; }, 500);
 }
+
+// Join form
+$('joinForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target, msg = $('formMsg'), btn = $('joinBtn');
+  const set = (t, c) => { msg.textContent = t; msg.className = 'form-msg ' + (c || ''); };
+  if (f.website.value) return; // honeypot
+  const d = { name: f.name.value.trim(), contact: f.contact.value.trim(), experience: f.experience.value, fitness: f.fitness.value, message: f.message.value.trim() };
+  if (!d.name || !d.contact || !d.experience || !d.fitness) { set('Please fill in the required fields.', 'err'); return; }
+  const text = `Join request for ${TREK.name}\n\nName: ${d.name}\nContact: ${d.contact}\nExperience: ${d.experience}\nFitness: ${d.fitness}\nMessage: ${d.message || '-'}`;
+  const done = () => { set(`Thanks ${d.name.split(' ')[0]}! We'll be in touch soon. 🥾`, 'ok'); f.reset(); };
+  try {
+    if (JOIN.endpoint) {
+      btn.disabled = true; set('Sending...');
+      const r = await fetch(JOIN.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(d) });
+      if (!r.ok) throw new Error('bad response');
+      done();
+    } else if (JOIN.email) {
+      location.href = `mailto:${JOIN.email}?subject=${encodeURIComponent('Join request: ' + d.name)}&body=${encodeURIComponent(text)}`;
+      done();
+    } else if (JOIN.whatsapp) {
+      window.open(`https://wa.me/${JOIN.whatsapp}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+      done();
+    } else {
+      set('The form is not connected yet. Please contact the crew leader directly.', 'err');
+    }
+  } catch (err) {
+    set('Something went wrong. Please try again in a moment.', 'err');
+  } finally { btn.disabled = false; }
+});
 
 tick(); setInterval(tick, 1000);
 showQuote(); setInterval(showQuote, 20000);
