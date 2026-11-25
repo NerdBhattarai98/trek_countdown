@@ -21,7 +21,8 @@
   --body:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
+html{scroll-behavior:smooth}
+html,body{min-height:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 .hero{position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 20px 150px;isolation:isolate}
 .hero-bg{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
@@ -54,14 +55,52 @@ h1 em{font-style:normal;color:var(--orange)}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(233,138,60,.5)}70%{box-shadow:0 0 0 10px rgba(233,138,60,0)}100%{box-shadow:0 0 0 0 rgba(233,138,60,0)}}
 .quote{margin:24px auto 0;max-width:620px;font-style:italic;color:#cfcabe;min-height:3.2em;transition:opacity .6s}
 .quote small{display:block;font-style:normal;color:var(--dim);font-size:.72rem;margin-top:4px;letter-spacing:.14em;text-transform:uppercase}
-footer{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:var(--dim);font-size:.75rem}
+.crew-link{display:inline-block;margin-top:14px;color:var(--orange2);font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px;transition:.3s}
+.crew-link:hover{border-bottom-color:var(--orange2)}
+footer.hero-foot{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:var(--dim);font-size:.75rem}
 .done-mode h1 em{color:var(--orange2)}
+
+/* ===== Crew ===== */
+.crew{position:relative;padding:96px 20px 110px;background:linear-gradient(180deg,#0e1112 0%,#111816 60%,#0e1112 100%);border-top:1px solid var(--line2)}
+.crew-inner{max-width:1080px;margin:0 auto}
+.crew-head{text-align:center;margin-bottom:48px}
+.crew-head h2{font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:.03em;font-size:clamp(2.2rem,5.6vw,4rem);line-height:.95;margin:12px 0 12px}
+.crew-head h2 em{font-style:normal;color:var(--orange)}
+.crew-head p{color:var(--muted);font-size:.95rem}
+.crew-head p b{color:var(--text);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.card{position:relative;padding:28px 22px 24px;border-radius:20px;background:rgba(18,24,25,.6);border:1px solid var(--line2);text-align:center;transition:transform .3s,border-color .3s,box-shadow .3s;opacity:0;transform:translateY(16px);animation:rise .7s ease forwards}
+.card:hover{transform:translateY(-4px);border-color:rgba(233,138,60,.55);box-shadow:0 14px 34px rgba(0,0,0,.35)}
+.card{overflow:hidden}
+.bib{position:absolute;top:-6px;right:10px;font-family:var(--head);font-weight:700;font-size:5.2rem;line-height:1;color:var(--c1);opacity:.09;pointer-events:none;user-select:none}
+.tag{display:inline-block;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
+.tag b{color:var(--c1);font-weight:600}
+.emblem{width:104px;height:84px;margin:0 auto 14px;display:block}
+.emblem .sun{fill:var(--c2);opacity:.9}
+.emblem .back{fill:var(--c1);opacity:.35}
+.emblem .front{fill:var(--c1)}
+.emblem .snow{fill:#ebe7de}
+.card:hover .emblem .sun{animation:glow 1.6s ease-in-out infinite alternate}
+@keyframes glow{from{opacity:.7}to{opacity:1}}
+.card h3{font-family:var(--head);font-weight:700;font-size:1.6rem;text-transform:uppercase;letter-spacing:.04em;line-height:1.05}
+.role{display:inline-block;margin-top:8px;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--orange2)}
+.note{margin-top:12px;color:var(--muted);font-size:.88rem;line-height:1.5}
+.crew-foot{text-align:center;margin-top:44px;color:var(--dim);font-size:.82rem}
+.crew-foot a{color:var(--orange2);text-decoration:none}
+.top{display:inline-block;margin-top:10px}
 @media (max-width:600px){
   .unit{padding:14px 4px 10px;border-radius:14px}
   .ms span{font-size:.58rem}
   .ms:nth-child(odd):not(:last-child) span{visibility:hidden}
+  .crew{padding:72px 16px 90px}
+  .grid{grid-template-columns:1fr 1fr;gap:12px}
+  .card{padding:22px 12px 18px}
+  .emblem{width:80px;height:65px}
+  .bib{font-size:4rem}
+  .card h3{font-size:1.3rem}
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:380px){.grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.card{opacity:1;transform:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -108,9 +147,25 @@ footer{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:var(
     </div>
 
     <p class="quote" id="quote"></p>
+    <a class="crew-link" href="#crew">Meet the crew ↓</a>
   </div>
-  <footer>Counting down in Nepal Time (UTC+05:45) 🥾</footer>
+  <footer class="hero-foot">Counting down in Nepal Time (UTC+05:45) 🥾</footer>
 </main>
+
+<section class="crew" id="crew" aria-labelledby="crewTitle">
+  <div class="crew-inner">
+    <div class="crew-head">
+      <div class="eyebrow">Who's coming</div>
+      <h2 id="crewTitle">Meet the <em>Crew</em></h2>
+      <p id="crewCount"></p>
+    </div>
+    <div class="grid" id="crewGrid"></div>
+    <div class="crew-foot">
+      <span>Want to join? Tell the crew leader.</span><br>
+      <a class="top" href="#hero">↑ Back to the countdown</a>
+    </div>
+  </div>
+</section>
 
 <script>
 'use strict';
@@ -120,6 +175,15 @@ const TREK = {
   start: '2026-11-17T00:00:00+05:45',  // Day 1 starts at midnight, Nepal time
   days: 400,                           // Day 400 = 21 Dec 2027
 };
+
+// Add, remove or rename people here.
+const CREW = [
+  { name: 'Abhinav Bista',   role: 'Trip Leader', note: 'The one who is actually invested' },
+  { name: 'Anbit Bhattarai',   role: 'Planner',   note: 'Trying,But Barely' },
+  { name: 'Pranil Prasai', role: 'The Leg',note: 'Has the best Walk' },
+  { name: 'Sakshi Sapkota',  role: 'Motivator',        note: 'Motivates us as the lowest' },
+  { name: 'Srijal Joshi',  role: 'Sir Edmund Hillary',        note: 'Is Responsible to actually take us' },
+];
 /* ======================== */
 
 const DAY = 86400000;
@@ -127,6 +191,7 @@ const START = new Date(TREK.start).getTime();
 const END = START + TREK.days * DAY;
 const $ = id => document.getElementById(id);
 const pad = n => String(n).padStart(2, '0');
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt = t => new Date(t).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Kathmandu' });
 const MILESTONES = [50, 100, 150, 200, 250, 300, 350, 400];
 const QUOTES = [
@@ -140,8 +205,32 @@ const QUOTES = [
 ];
 
 document.title = `400 Days to the Trek — ${TREK.name}`;
-$('sub').innerHTML = `<b>${TREK.name}</b> · Day 1 on ${fmt(START)} → Day ${TREK.days} on ${fmt(END - 1)}`;
+$('sub').innerHTML = `<b>${esc(TREK.name)}</b> · Day 1 on ${fmt(START)} → Day ${TREK.days} on ${fmt(END - 1)}`;
 $('milestones').innerHTML = MILESTONES.map(m => `<div class="ms" data-m="${m}" style="left:${m / TREK.days * 100}%"><i></i><span>Day ${m}</span></div>`).join('');
+
+// Crew
+const PALETTE = [['#e98a3c','#f4a862'],['#5b8c66','#8fbf9a'],['#d9d4c7','#ebe7de'],['#c96f4a','#e9a07d'],['#7aa3b5','#a9cad8'],['#b59a5b','#dcc58a']];
+// Each trekker gets a slightly different little peak so no two cards look the same.
+const PEAKS = [
+  '<path class="back" d="M0 70 L30 28 L48 52 L64 36 L104 70Z"/><path class="front" d="M14 70 L52 12 L90 70Z"/><path class="snow" d="M52 12 L41 30 L48 27 L53 33 L59 26 L63 30Z"/>',
+  '<path class="back" d="M0 70 L22 40 L40 58 L104 70Z"/><path class="front" d="M26 70 L66 8 L104 70Z"/><path class="snow" d="M66 8 L54 27 L61 24 L67 31 L74 23 L78 27Z"/>',
+  '<path class="back" d="M10 70 L50 34 L70 54 L104 70Z"/><path class="front" d="M0 70 L38 18 L76 70Z"/><path class="front" d="M50 70 L80 32 L104 70Z" opacity=".75"/><path class="snow" d="M38 18 L28 33 L35 31 L39 36 L45 30 L48 33Z"/>',
+  '<path class="back" d="M0 70 L38 38 L60 56 L82 30 L104 70Z"/><path class="front" d="M18 70 L58 14 L98 70Z"/><path class="snow" d="M58 14 L47 31 L54 28 L59 35 L65 28 L69 32Z"/>',
+];
+const emblem = i => `<svg class="emblem" viewBox="0 0 104 84" aria-hidden="true"><circle class="sun" cx="86" cy="16" r="7"/>${PEAKS[i % PEAKS.length]}<path d="M0 70 H104" stroke="var(--c1)" stroke-opacity=".4" stroke-width="1.5" stroke-dasharray="3 5"/></svg>`;
+$('crewCount').innerHTML = `<b>${CREW.length}</b> ${CREW.length === 1 ? 'trekker' : 'trekkers'} · ${TREK.days} days · one mountain`;
+$('crewGrid').innerHTML = CREW.map((p, i) => {
+  const [c1, c2] = PALETTE[i % PALETTE.length];
+  const n = pad(i + 1);
+  return `<article class="card" style="--c1:${c1};--c2:${c2};animation-delay:${i * 90}ms">
+    <div class="bib" aria-hidden="true">${n}</div>
+    <div class="tag">Trekker <b>${n}</b></div>
+    ${emblem(i)}
+    <h3>${esc(p.name)}</h3>
+    ${p.role ? `<span class="role">${esc(p.role)}</span>` : ''}
+    ${p.note ? `<p class="note">${esc(p.note)}</p>` : ''}
+  </article>`;
+}).join('');
 
 // Stars
 let stars = '';
