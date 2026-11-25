@@ -242,10 +242,11 @@ const TREK = {
 
 // Add, remove or rename people here.
 const CREW = [
-  { name: 'Trekker One',   role: 'Trip Leader', note: 'Plans the route and keeps the pace honest.' },
-  { name: 'Trekker Two',   role: 'Navigator',   note: 'Maps, trails and weather.' },
-  { name: 'Trekker Three', role: 'Photographer',note: 'Always stops for the shot.' },
-  { name: 'Trekker Four',  role: 'Cook',        note: 'Responsible for morale and hot meals.' },
+  { name: 'Abhinav Bista',   role: 'Trip Leader', note: 'The one who is actually invested' },
+  { name: 'Anbit Bhattarai',   role: 'Instigator',   note: 'Instigated entire thing,Might ditch later' },
+  { name: 'Pranil Prasai', role: 'The Son of Prasai Household',note: 'The Strongest Leg' },
+  { name: 'Sakshi Sapkota',  role: 'Motivator',        note: 'Motivates us at the lowest' },
+  { name: 'Srijal Joshi',  role: 'Sir Edmund Hillary',        note: 'The one who is responsible to take us' },
 ];
 // Where join requests go. Fill in ONE (checked in this order):
 const JOIN = {
@@ -369,7 +370,7 @@ $('joinForm').addEventListener('submit', async e => {
       window.open(`https://wa.me/${JOIN.whatsapp}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
       done();
     } else {
-      set('The form is not connected yet. Please contact the crew leader directly.', 'err');
+      set('The form is not connected yet. Please contact the crew leader directly at "abhinavbista10@gmail.com".', 'err');
     }
   } catch (err) {
     set('Something went wrong. Please try again in a moment.', 'err');
